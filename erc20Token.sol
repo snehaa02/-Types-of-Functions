@@ -23,4 +23,12 @@ contract MyToken is ERC20 {
     function burn(uint256 amount) external {
         _burn(msg.sender, amount);
     }
+    
+    function transfer(
+        address to,
+        uint256 value
+    ) public virtual override returns (bool success) {
+        require(balanceOf(msg.sender) >= value, "Insufficient balance");
+        success = super.transfer(to, value);
+    }
 }
